@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ZeebeClientFactory {
-
     private Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     //	TODO: @Value
