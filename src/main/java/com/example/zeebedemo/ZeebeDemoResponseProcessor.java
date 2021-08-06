@@ -24,19 +24,16 @@ public class ZeebeDemoResponseProcessor {
         int randomInt = (int) (Math.random() * (10 - 1));
         variables.put("hellonumber", randomInt);
         String demoKey = "demoKey";
-        if (true) {
             zeebeClient.newPublishMessageCommand()
                     .messageName("hello-message")
                     .correlationKey(demoKey)
                     .timeToLive(Duration.ofMillis(1000))
                     .variables(variables)
                     .send();
+        logger.info("Successfully published response");
 
 
 
-        } else {
-            logger.error("Request failed in ZeebeDemoResponseProcessor");
-        }
 
 
 

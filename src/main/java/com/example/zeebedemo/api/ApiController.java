@@ -19,11 +19,14 @@ public class ApiController {
 
     @Autowired
     private ZeebeClient zeebeClient;
+    @Autowired
+    private ZeebeDemoResponseProcessor demoResponseProcessor;
 
     @GetMapping("/start")
     public void start() {
         Map<String,Object> variableMap = new HashMap<>();
-        variableMap.put("Name","Joe");
+        variableMap.put("name","123");
+        variableMap.put("demoKey","demoKey");
         ProcessInstanceEvent processInstanceEvent = zeebeClient.newCreateInstanceCommand()
                 .bpmnProcessId("HelloProcess")
                 .latestVersion()
@@ -36,9 +39,8 @@ public class ApiController {
 
     @GetMapping("/response")
     public void response() {
-        ZeebeDemoResponseProcessor demoResponseProcessor = new ZeebeDemoResponseProcessor();
         demoResponseProcessor.response();
-        
+
     }
 
     @GetMapping("/deploy")

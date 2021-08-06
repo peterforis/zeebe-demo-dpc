@@ -27,5 +27,35 @@ public class WorkerManager {
                     .variables(incomingVariables)
                     .send();
         }).open();
+
+
+
+        zeebeClient.newWorker().jobType("hello-default").handler((client, job) -> {
+            Map<String,Object> incomingVariables = job.getVariablesAsMap();
+            LOG.info("Number received {}", incomingVariables.get("hellonumber"));
+            client.newCompleteCommand(job.getKey())
+                    .variables(incomingVariables)
+                    .send();
+        }).open();
+
+
+
+        zeebeClient.newWorker().jobType("hello-condition").handler((client, job) -> {
+            Map<String,Object> incomingVariables = job.getVariablesAsMap();
+            LOG.info("Number received {}", incomingVariables.get("hellonumber"));
+            client.newCompleteCommand(job.getKey())
+                    .variables(incomingVariables)
+                    .send();
+        }).open();
+
+
+
+        zeebeClient.newWorker().jobType("hello-checker").handler((client, job) -> {
+            Map<String,Object> incomingVariables = job.getVariablesAsMap();
+            LOG.info("Successfully received response");
+            client.newCompleteCommand(job.getKey())
+                    .variables(incomingVariables)
+                    .send();
+        }).open();
     }
 }
