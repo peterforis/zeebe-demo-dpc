@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Map;
 
 @Component
 public class WorkerManager {
@@ -18,8 +19,12 @@ public class WorkerManager {
     @PostConstruct
     public void setup() {
         zeebeClient.newWorker().jobType("hello-world").handler((client, job) -> {
-            LOG.info("Hello from worker");
+            Map<String,Object> incomingVariables = job.getVariablesAsMap();
+            LOG.info("Hello {}", incomingVariables.get("name"));
+            String message = "I am a message" + incomingVariables.get("name");
+            incomingVariables.put("message",message);
             client.newCompleteCommand(job.getKey())
+                    .variables(incomingVariables)
                     .send();
         }).open();
     }
