@@ -7,11 +7,13 @@ import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class ApiController {
@@ -22,11 +24,16 @@ public class ApiController {
     @Autowired
     private ZeebeDemoResponseProcessor demoResponseProcessor;
 
+    @Value("${demoKey}")
+    private String demoKey;
+
     @GetMapping("/start")
     public void start() {
         Map<String,Object> variableMap = new HashMap<>();
         variableMap.put("name","123");
-        variableMap.put("demoKey","demoKey");
+        System.out.println(demoKey);
+//        int randomInt = (int) ((Math.random() * (999999 - 100000)) + 100000);
+        variableMap.put("demoKey", demoKey);
         ProcessInstanceEvent processInstanceEvent = zeebeClient.newCreateInstanceCommand()
                 .bpmnProcessId("HelloProcess")
                 .latestVersion()
@@ -40,7 +47,6 @@ public class ApiController {
     @GetMapping("/response")
     public void response() {
         demoResponseProcessor.response();
-
     }
 
     @GetMapping("/deploy")

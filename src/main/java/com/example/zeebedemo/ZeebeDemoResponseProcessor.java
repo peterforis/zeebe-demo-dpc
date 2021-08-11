@@ -5,11 +5,13 @@ import io.camunda.zeebe.client.ZeebeClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class ZeebeDemoResponseProcessor {
@@ -19,22 +21,21 @@ public class ZeebeDemoResponseProcessor {
     @Autowired
     private ZeebeClient zeebeClient;
 
-    public void response(){
+    @Value("${demokey}")
+    private String demoKey;
+
+    public void response() {
         Map<String, Object> variables = new HashMap<>();
         int randomInt = (int) (Math.random() * (10 - 1));
         variables.put("hellonumber", randomInt);
-        String demoKey = "demoKey";
-            zeebeClient.newPublishMessageCommand()
-                    .messageName("hello-message")
-                    .correlationKey(demoKey)
-                    .timeToLive(Duration.ofMillis(1000))
-                    .variables(variables)
-                    .send();
+        System.out.println(demoKey);
+        zeebeClient.newPublishMessageCommand()
+                .messageName("hello-message")
+                .correlationKey(demoKey)
+                .timeToLive(Duration.ofMillis(1000))
+                .variables(variables)
+                .send();
         logger.info("Successfully published response");
-
-
-
-
 
 
     }

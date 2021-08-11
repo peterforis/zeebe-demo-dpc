@@ -3,9 +3,19 @@ package com.example.zeebedemo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.annotation.PostConstruct;
+import java.util.UUID;
+
 @SpringBootApplication
 public class ZeebeDemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZeebeDemoApplication.class, args);
+    }
+
+    private final static UUID app_id = UUID.randomUUID();
+
+    @PostConstruct
+    private void init() {
+        System.setProperty("demoKey", app_id.toString());
     }
 }
