@@ -9,7 +9,7 @@ default path, and a timeout event.
 
 Find out more about the [MIFOS initiative](https://mifos.org/)
 
-##Set up your enviroment
+## Set up your enviroment
 
 1. Make sure you have [Docker](https://www.docker.com/) installed. If you don't, you can install it 
 by following [their installation guide](https://docs.readthedocs.io/en/latest/development/install.html)
