@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
 import java.util.UUID;
-
+/*
+This class simply starts the Springboot application. It also generates the random ID, that will be used as the demoKey.
+*/
 @SpringBootApplication
 public class ZeebeDemoApplication {
     public static void main(String[] args) {

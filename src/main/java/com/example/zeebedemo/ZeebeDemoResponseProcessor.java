@@ -26,7 +26,7 @@ public class ZeebeDemoResponseProcessor {
 
     public void response() {
         Map<String, Object> variables = new HashMap<>();
-        int randomInt = (int) (Math.random() * (10 - 1));
+        int randomInt = (int) (Math.random() * 10);
         variables.put("hellonumber", randomInt);
         System.out.println(demoKey);
         zeebeClient.newPublishMessageCommand()
