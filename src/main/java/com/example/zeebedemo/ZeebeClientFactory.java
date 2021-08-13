@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-/*
-This class creates a zeebeClient to be used.
-*/
+
 @Component
 @PropertySource("classpath:application.properties")
 public class ZeebeClientFactory {
@@ -19,7 +17,7 @@ public class ZeebeClientFactory {
     private String gatewayAddress;
 
     @Bean
-    public ZeebeClient zeebeClient(){
+    public ZeebeClient zeebeClient() {
         LOG.info("Zeebe client connecting to {}", gatewayAddress);
         return ZeebeClient.newClientBuilder()
                 .gatewayAddress(gatewayAddress)
